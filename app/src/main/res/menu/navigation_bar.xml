@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_explorer"
+        android:icon="@drawable/ic_explorer"
+        android:title="Explorar"
+        />
+
+    <item
+        android:id="@+id/item_mylists"
+        android:icon="@drawable/ic_mylists"
+        android:title="Mis Listas"
+        />
+
+    <item
+        android:id="@+id/item_newroutine"
+        android:icon="@drawable/ic_newroutine"
+        />
+
+    <item
+        android:id="@+id/item_favorites"
+        android:icon="@drawable/ic_favorites"
+        android:title="Favoritos"
+        />
+
+    <item
+        android:id="@+id/item_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Perfil"
+        />
+</menu>
