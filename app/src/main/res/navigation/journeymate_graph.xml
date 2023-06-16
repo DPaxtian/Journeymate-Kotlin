@@ -30,13 +30,12 @@
         android:label="Favoritas"
         tools:layout="@layout/fragment_favorites" />
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.journeymate.fragments.ProfileFragment"
-        android:label="Perfil"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
         android:id="@+id/routineDetailsFragment"
         android:name="com.example.journeymate.fragments.RoutineDetailsFragment"
         android:label="fragment_routine_details"
         tools:layout="@layout/fragment_routine_details" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.journeymate.fragments.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>
