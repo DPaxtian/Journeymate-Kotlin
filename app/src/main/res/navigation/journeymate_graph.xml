@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/journeymate_graph"
+    app:startDestination="@id/explorerFragment">
+
+    <fragment
+        android:id="@+id/explorerFragment"
+        android:name="com.example.journeymate.fragments.ExplorerFragment"
+        android:label="Explorar"
+        tools:layout="@layout/fragment_explorer" >
+        <action
+            android:id="@+id/action_explorerFragment_to_routineDetailsFragment"
+            app:destination="@id/routineDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myListsFragment"
+        android:name="com.example.journeymate.fragments.MyListsFragment"
+        android:label="Mis Listas"
+        tools:layout="@layout/fragment_my_lists" />
+    <fragment
+        android:id="@+id/newRoutineFragment"
+        android:name="com.example.journeymate.fragments.NewRoutineFragment"
+        android:label="Agregar"
+        tools:layout="@layout/fragment_new_routine" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.journeymate.fragments.FavoritesFragment"
+        android:label="Favoritas"
+        tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.journeymate.fragments.ProfileFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/routineDetailsFragment"
+        android:name="com.example.journeymate.fragments.RoutineDetailsFragment"
+        android:label="fragment_routine_details"
+        tools:layout="@layout/fragment_routine_details" />
+</navigation>

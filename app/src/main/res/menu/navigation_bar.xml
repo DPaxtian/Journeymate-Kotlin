@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item_explorer"
+        android:id="@+id/explorerFragment"
         android:icon="@drawable/ic_explorer"
         android:title="Explorar"
         />
 
     <item
-        android:id="@+id/item_mylists"
+        android:id="@+id/myListsFragment"
         android:icon="@drawable/ic_mylists"
         android:title="Mis Listas"
         />
 
     <item
-        android:id="@+id/item_newroutine"
+        android:id="@+id/newRoutineFragment"
         android:icon="@drawable/ic_newroutine"
         />
 
     <item
-        android:id="@+id/item_favorites"
+        android:id="@+id/favoritesFragment"
         android:icon="@drawable/ic_favorites"
         android:title="Favoritos"
         />
 
     <item
-        android:id="@+id/item_profile"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/ic_profile"
         android:title="Perfil"
         />
