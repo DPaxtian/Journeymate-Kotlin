@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/LoginFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,7 +14,170 @@
             android:src="@drawable/background_login"
             android:scaleType="centerCrop" />
 
-        <!-- Resto de los elementos del diseño del fragment -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#60000000"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/returnLoginButton"
+                    android:layout_width="20dp"
+                    android:layout_height="19dp"
+                    android:src="@drawable/ic_return"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo_journeymate"
+                    android:layout_marginTop="30dp"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Inicia sesión en tu cuenta"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="40dp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/inter_light"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="Correo:"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="27dp"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/inter_medium"/>
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:hint="journeymate@ejemplo.com"
+                    android:inputType="textEmailAddress"
+                    style="@style/EditTextCustomStyle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="Contraseña:"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginTop="45dp"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/inter_medium"/>
+
+                <EditText
+                    android:id="@+id/editPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:hint="Ingresa tu contraseña"
+                    android:inputType="textPassword"
+                    style="@style/EditTextCustomStyle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="¿Olvidaste tu contraseña?"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/inter_medium"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="55dp"
+                    android:text="Iniciar sesion"
+                    android:backgroundTint="#704193CE"
+                    style="@style/BigButtonCustomStyle"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:text="ó"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/inter_medium"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="51dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp">
+
+                    <Button
+                        style="@style/LoginWithOthers"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_facebook"
+                        android:drawablePadding="15dp" />
+
+                    <Button
+                        style="@style/LoginWithOthers"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:drawableTop="@drawable/ic_google"
+                        android:drawablePadding="15dp" />
+
+                    <Button
+                        style="@style/LoginWithOthers"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_twitter"
+                        android:drawablePadding="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="¿Aun no tienes cuenta? "
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/signUpButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Registrate aquí"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

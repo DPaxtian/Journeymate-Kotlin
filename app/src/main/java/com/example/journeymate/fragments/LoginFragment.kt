@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.navigation.fragment.findNavController
+import com.example.journeymate.MainActivity
 import com.example.journeymate.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,25 +23,50 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val navBar = requireActivity().findViewById<BottomNavigationView>(R.id.nav_bar)
+        navBar.visibility = View.GONE
+        val returnLoginButton = requireActivity().findViewById<ImageView>(R.id.returnLoginButton);
+        val navController = findNavController()
+        //nageva al dar clic al boton regresar
+        returnLoginButton.setOnClickListener{
+            navController.navigate(R.id.explorerFragment)
+            showNavBar()
+        }
+
+        //navega al dar clic al boton registrar
+        val signUpButton = requireActivity().findViewById<TextView>(R.id.signUpButton)
+        signUpButton.setOnClickListener {
+            navController.navigate(R.id.register_fragment)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        showNavBar()
+    }
+
+    private fun showNavBar(){
+        val view = requireActivity().findViewById<BottomNavigationView>(R.id.nav_bar)
+        view.visibility = View.VISIBLE
+    }
+
+
+
 
     companion object {
         /**
