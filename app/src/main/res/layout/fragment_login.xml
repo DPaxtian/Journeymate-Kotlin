@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <FrameLayout
@@ -28,96 +29,97 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/returnLoginButton"
                     android:layout_width="20dp"
                     android:layout_height="19dp"
-                    android:src="@drawable/ic_return"/>
+                    android:src="@drawable/ic_return" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/logo_journeymate"
+                    android:layout_gravity="center"
                     android:layout_marginTop="30dp"
-                    android:layout_gravity="center"/>
+                    android:src="@drawable/logo_journeymate" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/inter_light"
                     android:text="Inicia sesión en tu cuenta"
                     android:textColor="#FFFFFF"
-                    android:layout_marginTop="40dp"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/inter_light"/>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
+                    android:layout_marginTop="27dp"
+                    android:fontFamily="@font/inter_medium"
                     android:text="Correo:"
                     android:textColor="#FFFFFF"
-                    android:layout_marginTop="27dp"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/inter_medium"/>
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/editText"
+                    style="@style/EditTextCustomStyle"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:hint="journeymate@ejemplo.com"
-                    android:inputType="textEmailAddress"
-                    style="@style/EditTextCustomStyle"/>
+                    android:inputType="textEmailAddress" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
+                    android:layout_marginTop="45dp"
+                    android:fontFamily="@font/inter_medium"
                     android:text="Contraseña:"
                     android:textColor="#FFFFFF"
-                    android:layout_marginTop="45dp"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/inter_medium"/>
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/editPassword"
+                    style="@style/EditTextCustomStyle"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:hint="Ingresa tu contraseña"
-                    android:inputType="textPassword"
-                    style="@style/EditTextCustomStyle"/>
+                    android:inputType="textPassword" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
+                    android:fontFamily="@font/inter_medium"
                     android:text="¿Olvidaste tu contraseña?"
                     android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/inter_medium"/>
+                    android:textSize="15sp" />
 
                 <Button
+                    style="@style/BigButtonCustomStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="55dp"
-                    android:text="Iniciar sesion"
                     android:backgroundTint="#704193CE"
-                    style="@style/BigButtonCustomStyle"
-                    />
+                    android:text="Iniciar sesion" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/inter_medium"
                     android:text="ó"
                     android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/inter_medium"/>
+                    android:textSize="15sp" />
 
                 <LinearLayout
+                    android:id="@+id/linearLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="51dp"
                     android:layout_gravity="center"
@@ -149,8 +151,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -174,7 +176,6 @@
                         android:textColor="#FFFFFF"
                         android:textSize="15sp" />
                 </LinearLayout>
-
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

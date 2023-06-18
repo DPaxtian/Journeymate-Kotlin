@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
 import com.example.journeymate.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,6 +41,26 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_register, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val returnLoginButton = requireActivity().findViewById<ImageView>(R.id.returnButton);
+        val navController = findNavController()
+        //nageva al dar clic al boton regresar
+        returnLoginButton.setOnClickListener{
+            navController.popBackStack(R.id.loginFragment, false)
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            navController.popBackStack(R.id.loginFragment, false)
+        }
+
+        val signInButton = requireActivity().findViewById<TextView>(R.id.signInButton)
+        signInButton.setOnClickListener {
+            navController.popBackStack(R.id.loginFragment, false)
+        }
+    }
+
 
     companion object {
         /**

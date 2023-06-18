@@ -37,5 +37,13 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.journeymate.fragments.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.journeymate.fragments.RegisterFragment"
+        android:label="RegisterFragment" />
 </navigation>

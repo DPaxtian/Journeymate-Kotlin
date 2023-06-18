@@ -51,7 +51,7 @@ class LoginFragment : Fragment() {
         //navega al dar clic al boton registrar
         val signUpButton = requireActivity().findViewById<TextView>(R.id.signUpButton)
         signUpButton.setOnClickListener {
-            navController.navigate(R.id.register_fragment)
+            navController.navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 
