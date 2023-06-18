@@ -38,4 +38,20 @@
         android:id="@+id/loginFragment"
         android:name="com.example.journeymate.fragments.LoginFragment"
         android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.journeymate.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.journeymate.fragments.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>
