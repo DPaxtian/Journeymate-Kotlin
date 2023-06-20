@@ -64,7 +64,7 @@
                     style="@style/EditTextCustomStyle"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:hint="tu nombre aquí"
+                    android:hint="Journey"
                     android:inputType="textPersonName" />
 
                 <TextView
@@ -82,7 +82,7 @@
                     style="@style/EditTextCustomStyle"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:hint="Tus apellidos aquí"
+                    android:hint="Mate"
                     android:inputType="textPersonName" />
 
                 <TextView
@@ -100,7 +100,7 @@
                     style="@style/EditTextCustomStyle"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:hint="Edad mayor de 14 y menor de 90"
+                    android:hint="Edad minina 14 años"
                     android:inputType="number" />
 
 
@@ -137,7 +137,7 @@
                     style="@style/EditTextCustomStyle"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:hint="Debe contener el formato As1"
+                    android:hint="Mín. 8 caract., 1 número, 1 mayúscula."
                     android:inputType="textPassword" />
 
                 <TextView
@@ -146,7 +146,7 @@
                     android:layout_gravity="start"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Repetir contraseña:"
+                    android:text="Confirmar contraseña:"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp" />
 
