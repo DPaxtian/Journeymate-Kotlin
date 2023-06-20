@@ -1,18 +1,13 @@
 package com.example.journeymate.fragments
 
-import android.net.RouteInfo
-import android.opengl.Visibility
+import RecyclerViewAdapter
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,10 +16,7 @@ import com.example.journeymate.R
 import com.example.journeymate.models.JourneymateAPI
 import com.example.journeymate.models.Routine
 import com.example.journeymate.repositories.RetrofitHelper
-import com.example.journeymate.repositories.RoutineRepository
-import com.example.journeymate.ui.RecyclerViewAdapter
-import com.example.journeymate.viewmodels.RoutineViewModel
-import kotlinx.coroutines.GlobalScope
+
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -44,6 +36,7 @@ class ExplorerFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 progressBar.visibility = View.VISIBLE
+
                 val result = async { jouneymateApi.getRoutines() }
                 val routinesObtained = result.await().response
                 routines.removeAll(routinesObtained)
@@ -52,10 +45,16 @@ class ExplorerFragment : Fragment() {
                     progressBar.visibility = View.GONE
                 }
 
-                val recycler : RecyclerView = view.findViewById(R.id.cards_recycler)
+
+                val recycler : RecyclerView = view.findViewById(R.id.explorer_recycler)
                 val adapter : RecyclerViewAdapter = RecyclerViewAdapter()
 
                 adapter.RecyclerViewAdapter(routines, view.context)
+                adapter.onRoutineClick = {
+                    val bundle = Bundle()
+                    bundle.putParcelable("routine", it)
+                    findNavController().navigate(R.id.action_explorerFragment_to_routineDetailsFragment, bundle)
+                }
 
                 recycler.hasFixedSize()
                 recycler.layoutManager = LinearLayoutManager(view.context)

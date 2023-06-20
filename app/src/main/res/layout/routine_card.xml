@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="5dp"
+    android:elevation="10dp"
     android:layout_margin="7dp"
-    app:cardBackgroundColor="#F3F3F3"
-
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +18,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/inter_semibold"
             android:text="Parques"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -45,6 +44,7 @@
             android:id="@+id/card_location"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_light"
             android:text="Xalapa, Veracruz"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.112"
@@ -58,9 +58,10 @@
             android:layout_marginTop="20dp"
             android:duplicateParentState="false"
             android:editable="false"
+            android:fontFamily="@font/inter_light"
             android:text="Rutinas para ir a pasear con el perro o la perra de tu suegra xd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintHorizontal_bias="0.35"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_location"
             app:layout_wrapBehaviorInParent="horizontal_only" />
@@ -70,6 +71,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/inter_semibold"
             android:text="De: "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +83,7 @@
             android:id="@+id/imageView2"
             android:layout_width="19dp"
             android:layout_height="18dp"
-            android:layout_marginStart="52dp"
+            android:layout_marginStart="35dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/card_username"
             app:layout_constraintTop_toBottomOf="@+id/card_description"
@@ -93,6 +96,7 @@
             android:layout_marginStart="7dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="12dp"
+            android:fontFamily="@font/inter_semibold"
             android:text="Presupuesto:"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -104,6 +108,7 @@
             android:id="@+id/card_follows"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_light"
             android:text="12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -113,7 +118,8 @@
             android:id="@+id/card_budget"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/inter_light"
             android:text="$1200"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -127,11 +133,13 @@
             android:id="@+id/card_username"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/inter_light"
             android:text="dpax"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView12"
             app:layout_constraintTop_toBottomOf="@+id/card_description"
-            app:layout_constraintVertical_bias="0.647" />
+            app:layout_constraintVertical_bias="0.666" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

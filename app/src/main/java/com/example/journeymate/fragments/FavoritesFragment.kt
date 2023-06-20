@@ -1,60 +1,78 @@
 package com.example.journeymate.fragments
 
+import RecyclerViewAdapter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.journeymate.R
+import com.example.journeymate.models.JourneymateAPI
+import com.example.journeymate.models.Routine
+import com.example.journeymate.repositories.RetrofitHelper
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoritesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FavoritesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    lateinit var username : String
+    val favoritesRoutines : MutableList<Routine> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        username = "DanielPaxtian69"
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+        val view = inflater.inflate(R.layout.fragment_favorites, container, false)
+
+        val jouneymateApi = RetrofitHelper.getInstance().create(JourneymateAPI::class.java)
+        val progressBar = view.findViewById<ProgressBar>(R.id.favorites_progress)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                progressBar.visibility = View.VISIBLE
+
+                val result = async { jouneymateApi.getFavoritesRoutines(username) }
+                val routinesObtained = result.await().response
+
+                favoritesRoutines.removeAll(routinesObtained)
+                favoritesRoutines.addAll(routinesObtained )
+                if(favoritesRoutines != null){
+                    progressBar.visibility = View.GONE
+                }
+
+                val recycler : RecyclerView = view.findViewById(R.id.favorites_recycler)
+                val adapter : RecyclerViewAdapter = RecyclerViewAdapter()
+
+                adapter.RecyclerViewAdapter(favoritesRoutines, view.context)
+                adapter.onRoutineClick = {
+                    val bundle = Bundle()
+                    bundle.putParcelable("routine", it)
+                    findNavController().navigate(R.id.action_favoritesFragment_to_routineDetailsFragment, bundle)
+                }
+
+                recycler.hasFixedSize()
+                recycler.layoutManager = LinearLayoutManager(view.context)
+                recycler.adapter = adapter
+            } catch (e: Exception) {
+                progressBar.visibility = View.GONE
+                Log.e("Error", e.toString())
+            }
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoritesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoritesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }

@@ -18,7 +18,11 @@
         android:id="@+id/myListsFragment"
         android:name="com.example.journeymate.fragments.MyListsFragment"
         android:label="Mis Listas"
-        tools:layout="@layout/fragment_my_lists" />
+        tools:layout="@layout/fragment_my_lists" >
+        <action
+            android:id="@+id/action_myListsFragment_to_routineDetailsFragment"
+            app:destination="@id/routineDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newRoutineFragment"
         android:name="com.example.journeymate.fragments.NewRoutineFragment"
@@ -28,12 +32,20 @@
         android:id="@+id/favoritesFragment"
         android:name="com.example.journeymate.fragments.FavoritesFragment"
         android:label="Favoritas"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_routineDetailsFragment"
+            app:destination="@id/routineDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/routineDetailsFragment"
         android:name="com.example.journeymate.fragments.RoutineDetailsFragment"
         android:label="fragment_routine_details"
-        tools:layout="@layout/fragment_routine_details" />
+        tools:layout="@layout/fragment_routine_details" >
+        <argument
+            android:name="routine"
+            app:argType="com.example.journeymate.models.Routine" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.journeymate.fragments.LoginFragment"

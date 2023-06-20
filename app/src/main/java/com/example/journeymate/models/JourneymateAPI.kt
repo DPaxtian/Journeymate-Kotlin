@@ -27,6 +27,9 @@ interface JourneymateAPI {
     @GET("routines")
     suspend fun getRoutines() : RoutineResponse
 
+    @GET("routines/routinesFollowed/{username}")
+    suspend fun getFavoritesRoutines(@Path("username") username: String) : RoutineResponse
+
     //TASK
 
 }

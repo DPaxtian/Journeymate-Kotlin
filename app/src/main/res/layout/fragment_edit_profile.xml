@@ -119,8 +119,9 @@
         <EditText
             android:id="@+id/editTextName"
             android:layout_width="380dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:ems="10"
+            style="@style/EditTextCustomStyle"
             android:hint="Alejandro"
             android:inputType="text"
             android:textSize="16sp"
@@ -131,8 +132,9 @@
         <EditText
             android:id="@+id/editTextLastname"
             android:layout_width="380dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:ems="10"
+            style="@style/EditTextCustomStyle"
             android:hint="Perales"
             android:inputType="text"
             android:textSize="16sp"
@@ -144,8 +146,9 @@
         <EditText
             android:id="@+id/editTextEmail"
             android:layout_width="380dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:ems="10"
+            style="@style/EditTextCustomStyle"
             android:hint="email@journeymate.com"
             android:inputType="text|textEmailAddress"
             android:textSize="16sp"
@@ -157,8 +160,9 @@
         <EditText
             android:id="@+id/editTextPhoneNumber"
             android:layout_width="380dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:ems="10"
+            style="@style/EditTextCustomStyle"
             android:hint="9999999999"
             android:inputType="phone"
             android:textSize="16sp"
@@ -170,7 +174,8 @@
         <EditText
             android:id="@+id/editTextCountry"
             android:layout_width="380dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            style="@style/EditTextCustomStyle"
             android:ems="10"
             android:hint="México"
             android:inputType="text"
@@ -183,7 +188,8 @@
         <EditText
             android:id="@+id/editTextCity"
             android:layout_width="380dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            style="@style/EditTextCustomStyle"
             android:ems="10"
             android:hint="Xalapa"
             android:inputType="text"
@@ -196,7 +202,8 @@
         <EditText
             android:id="@+id/editTextDescription"
             android:layout_width="380dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            style="@style/EditTextCustomStyle"
             android:ems="10"
             android:hint="Hola, soy alejandro"
             android:inputType="text"
