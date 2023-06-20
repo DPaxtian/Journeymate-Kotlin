@@ -28,7 +28,7 @@ class FavoritesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        username = "DanielPaxtian69"
+        username = "AxelMorales175"
     }
 
     override fun onCreateView(
