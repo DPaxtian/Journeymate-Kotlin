@@ -5,11 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.journeymate.MainActivity
 import com.example.journeymate.R
+import com.example.journeymate.models.Encription
+import com.example.journeymate.models.HttpStatusCode
+import com.example.journeymate.viewmodels.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,16 +30,26 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class LoginFragment : Fragment() {
+    private lateinit var emailEditText : EditText
+    private lateinit var passwordEditText : EditText
+    private lateinit var buttonLogin : Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        emailEditText = view.findViewById(R.id.editTextLoginEmail)
+        passwordEditText = view.findViewById(R.id.editTextLoginPassword)
+        buttonLogin = view.findViewById(R.id.buttonLogin)
+
+        setupListenerLoginButton()
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,6 +70,7 @@ class LoginFragment : Fragment() {
         signUpButton.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_registerFragment)
         }
+
     }
 
     override fun onDestroy() {
@@ -65,8 +83,39 @@ class LoginFragment : Fragment() {
         view.visibility = View.VISIBLE
     }
 
+    private fun setupListenerLoginButton() {
+        buttonLogin.setOnClickListener {
+            val emailUser = emailEditText.text.toString()
+            val passwordUser = passwordEditText.text.toString()
+
+            val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+            var codeResult: Int = HttpStatusCode.NOT_FOUND.code
+
+            userViewModel.performAsyncTask(emailUser, passwordUser) { result ->
+                codeResult = result
+
+                if (codeResult == HttpStatusCode.OK.code) {
+                    showMessage("Sesión iniciada")
+                } else if(codeResult == HttpStatusCode.FORBIDDEN.code){
+                    showMessage("El correo o la contraseña son incorrectos")
+                }else if(codeResult == HttpStatusCode.INTERNAL_SERVER_ERROR.code){
+                    showMessage("Error al iniciar sesión")
+                }
+
+            }
+
+                emailEditText.setText("")
+                passwordEditText.setText("")
+
+        }
+    }
 
 
+
+    private fun showMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
 
     companion object {
         /**
