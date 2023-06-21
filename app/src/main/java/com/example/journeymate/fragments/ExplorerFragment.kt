@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,8 @@ import com.example.journeymate.R
 import com.example.journeymate.models.JourneymateAPI
 import com.example.journeymate.models.Routine
 import com.example.journeymate.repositories.RetrofitHelper
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -24,6 +27,13 @@ import java.lang.Exception
 
 class ExplorerFragment : Fragment() {
     val routines : MutableList<Routine> = ArrayList()
+    lateinit var username : String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        username = "DanielPaxtian69"
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +64,22 @@ class ExplorerFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putParcelable("routine", it)
                     findNavController().navigate(R.id.action_explorerFragment_to_routineDetailsFragment, bundle)
+                }
+
+                adapter.onFollowClick = {
+
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        val jsonObject = JsonObject()
+                        jsonObject.addProperty("username", username)
+                        jsonObject.addProperty("idRoutine", it._id)
+                        val followResult = async { jouneymateApi.followRoutine(jsonObject) }
+                        val resultReturn = followResult.await().code
+
+                        if(resultReturn == 200){
+                            Toast.makeText(view.context, "Rutina seguida", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_explorerFragment_to_favoritesFragment)
+                        }
+                    }
                 }
 
                 recycler.hasFixedSize()

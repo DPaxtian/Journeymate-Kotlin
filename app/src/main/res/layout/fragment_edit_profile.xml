@@ -15,21 +15,22 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:text="Personalizar Perfil"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.10"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.05" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView10"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="24dp"
             android:text="Nombre"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -40,9 +41,11 @@
 
         <TextView
             android:id="@+id/textView11"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
             android:text="Apellido"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -53,9 +56,11 @@
 
         <TextView
             android:id="@+id/textView16"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
             android:text="Correo Electronico"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -66,9 +71,11 @@
 
         <TextView
             android:id="@+id/textView18"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
             android:text="Numero Telefonico"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -79,9 +86,11 @@
 
         <TextView
             android:id="@+id/textView19"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
             android:text="País"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -92,9 +101,11 @@
 
         <TextView
             android:id="@+id/textView21"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
             android:text="Ciudad"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -105,9 +116,11 @@
 
         <TextView
             android:id="@+id/textView24"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
             android:text="Descripcion"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -118,10 +131,12 @@
 
         <EditText
             android:id="@+id/editTextName"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
-            android:ems="10"
             style="@style/EditTextCustomStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
             android:hint="Alejandro"
             android:inputType="text"
             android:textSize="16sp"
@@ -131,10 +146,12 @@
 
         <EditText
             android:id="@+id/editTextLastname"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
-            android:ems="10"
             style="@style/EditTextCustomStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
             android:hint="Perales"
             android:inputType="text"
             android:textSize="16sp"
@@ -145,10 +162,12 @@
 
         <EditText
             android:id="@+id/editTextEmail"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
-            android:ems="10"
             style="@style/EditTextCustomStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
             android:hint="email@journeymate.com"
             android:inputType="text|textEmailAddress"
             android:textSize="16sp"
@@ -159,10 +178,12 @@
 
         <EditText
             android:id="@+id/editTextPhoneNumber"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
-            android:ems="10"
             style="@style/EditTextCustomStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
             android:hint="9999999999"
             android:inputType="phone"
             android:textSize="16sp"
@@ -173,9 +194,11 @@
 
         <EditText
             android:id="@+id/editTextCountry"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
             style="@style/EditTextCustomStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:ems="10"
             android:hint="México"
             android:inputType="text"
@@ -187,9 +210,11 @@
 
         <EditText
             android:id="@+id/editTextCity"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
             style="@style/EditTextCustomStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:ems="10"
             android:hint="Xalapa"
             android:inputType="text"
@@ -201,9 +226,11 @@
 
         <EditText
             android:id="@+id/editTextDescription"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
             style="@style/EditTextCustomStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:ems="10"
             android:hint="Hola, soy alejandro"
             android:inputType="text"
@@ -222,6 +249,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_saveprofile"
+            style="@style/BigButtonCustomStyle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="#805DCC42"
+            android:text="Guardar Cambios"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

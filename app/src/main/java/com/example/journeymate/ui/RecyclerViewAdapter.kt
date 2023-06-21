@@ -1,8 +1,10 @@
 
 import android.content.Context
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.journeymate.R
@@ -14,6 +16,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
     var routines : MutableList<Routine> = ArrayList()
     lateinit var context : Context
     var onRoutineClick : ((Routine) -> Unit)? = null
+    var onFollowClick : ((Routine) -> Unit)? = null
 
     fun RecyclerViewAdapter(routines : MutableList<Routine>, context : Context){
         this.routines = routines
@@ -27,6 +30,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
         val creator : TextView
         val follows : TextView
         val budget: TextView
+        val followButton : ImageButton
 
         init {
             title = view.findViewById(R.id.card_title)
@@ -35,6 +39,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
             creator = view.findViewById(R.id.card_username)
             follows = view.findViewById(R.id.card_follows)
             budget = view.findViewById(R.id.card_budget)
+            followButton = view.findViewById(R.id.follow_routine)
         }
     }
 
@@ -56,6 +61,10 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
 
         holder.itemView.setOnClickListener {
             onRoutineClick?.invoke(routine)
+        }
+
+        holder.followButton.setOnClickListener {
+            onFollowClick?.invoke(routine)
         }
     }
 }

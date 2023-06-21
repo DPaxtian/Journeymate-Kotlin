@@ -61,7 +61,7 @@ class ProfileFragment : Fragment() {
                 nameText.text = userInfo.name + " " + userInfo.lastname
                 usernameText.text = userInfo.username
                 emailText.text = userInfo.email
-                locationText.text = userInfo.city + " " + userInfo.country
+                locationText.text = userInfo.city + ", " + userInfo.country
                 ageText.text = userInfo.age.toString()
                 descriptionText.text = userInfo.user_description
             } catch (e: Exception) {

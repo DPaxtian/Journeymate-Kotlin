@@ -20,6 +20,7 @@ data class Routine(
     val valorations: List<Any>,
     val visibility: String
 ) : Parcelable {
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()!!,
