@@ -13,6 +13,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.journeymate.MainActivity
 import com.example.journeymate.R
 import com.example.journeymate.models.JourneymateAPI
 import com.example.journeymate.models.Routine
@@ -27,6 +28,7 @@ class NewRoutineFragment : Fragment() {
     lateinit var username : String
     lateinit var routineToEdit : Routine
     var isEdit : Boolean = false
+
     val categories = listOf(
         "Turismo",
         "Gastronomía",
@@ -63,11 +65,19 @@ class NewRoutineFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        username = "DanielPaxtian69"
+        if(MainActivity.instance.userLogged != null) {
+            username = MainActivity.instance.userLogged!!.username
+        } else {
+            username = ""
+        }
 
         val args = this.arguments
-        routineToEdit = args?.getParcelable("routineToEdit")!!
         isEdit = args?.getBoolean("isEdit")!!
+
+        if(isEdit == true){
+            routineToEdit = args.getParcelable("routineToEdit")!!
+        }
+
     }
 
     override fun onCreateView(
@@ -76,100 +86,117 @@ class NewRoutineFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_new_routine, container, false)
-        val journeymateAPI = RetrofitHelper.getInstance().create(JourneymateAPI::class.java)
+        var visibilityString = ""
 
-        val categoriesSpinner = view.findViewById<Spinner>(R.id.categories_spinner)
-        val categoriesAdapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_dropdown_item, categories)
-        categoriesSpinner.adapter = categoriesAdapter
+        if(!username.equals("")){
 
-        val visibilitySpinner = view.findViewById<Spinner>(R.id.visibility_spinner)
-        val visibilityAdapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_dropdown_item, visibilityStrings)
-        visibilitySpinner.adapter = visibilityAdapter
+            val journeymateAPI = RetrofitHelper.getInstance().create(JourneymateAPI::class.java)
 
-        title = view.findViewById<EditText>(R.id.newroutine_title)
-        city = view.findViewById<EditText>(R.id.newroutine_city)
-        country = view.findViewById<EditText>(R.id.newroutine_country)
-        state = view.findViewById<EditText>(R.id.newroutine_state)
-        town = view.findViewById<EditText>(R.id.newroutine_town)
-        category = view.findViewById<Spinner>(R.id.categories_spinner)
-        visibility = view.findViewById<Spinner>(R.id.visibility_spinner)
-        description = view.findViewById<EditText>(R.id.newroutine_description)
-        val selectedVisibility : String = if(visibility!!.selectedItem.equals("Publica")){
-            "public"
+            val categoriesSpinner = view.findViewById<Spinner>(R.id.categories_spinner)
+            val categoriesAdapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_dropdown_item, categories)
+            categoriesSpinner.adapter = categoriesAdapter
+
+            val visibilitySpinner = view.findViewById<Spinner>(R.id.visibility_spinner)
+            val visibilityAdapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_dropdown_item, visibilityStrings)
+            visibilitySpinner.adapter = visibilityAdapter
+
+            title = view.findViewById<EditText>(R.id.newroutine_title)
+            city = view.findViewById<EditText>(R.id.newroutine_city)
+            country = view.findViewById<EditText>(R.id.newroutine_country)
+            state = view.findViewById<EditText>(R.id.newroutine_state)
+            town = view.findViewById<EditText>(R.id.newroutine_town)
+            category = view.findViewById<Spinner>(R.id.categories_spinner)
+            visibility = view.findViewById<Spinner>(R.id.visibility_spinner)
+            description = view.findViewById<EditText>(R.id.newroutine_description)
+            visibility = view.findViewById<Spinner>(R.id.visibility_spinner)
+
+            updateButton = view.findViewById(R.id.updateroutine_button)
+            registerButton = view.findViewById<Button>(R.id.registerroutine_button)
+
+            if(isEdit){
+                setRoutineInfo()
+            }
+
+            registerButton!!.setOnClickListener {
+                if(ValidateFieds()){
+
+
+                    val jsonObject = JsonObject()
+                    jsonObject.addProperty("routine_creator", username)
+                    jsonObject.addProperty("name", title!!.text.toString())
+                    jsonObject.addProperty("city", city!!.text.toString())
+                    jsonObject.addProperty("country", country!!.text.toString())
+                    jsonObject.addProperty("routine_description", description!!.text.toString())
+                    if(visibility!!.selectedItem.equals("Publica")){
+                        visibilityString = "public"
+                    } else {
+                        visibilityString = "private"
+                    }
+                    jsonObject.addProperty("visibility", visibilityString)
+                    jsonObject.addProperty("label_category", category!!.selectedItem.toString())
+                    jsonObject.addProperty("state_country", state!!.text.toString())
+                    jsonObject.addProperty("town", town!!.text.toString())
+
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        try{
+                            val response = async { journeymateAPI.registerRoutine(jsonObject) }
+                            val statusCode = response.await().code
+
+                            if(statusCode == 200){
+                                Toast.makeText(view.context, "Rutina registrada con exito", Toast.LENGTH_SHORT).show()
+                                findNavController().navigate(R.id.action_newRoutineFragment_to_myListsFragment)
+                            }
+                        } catch (e: Exception){
+                            Log.e("Exception", e.toString())
+                            Toast.makeText(view.context, "Hubo un problema", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                }
+
+            }
+
+            updateButton!!.setOnClickListener {
+                if(ValidateFieds()){
+
+
+                    val jsonObject = JsonObject()
+                    jsonObject.addProperty("routine_creator", username)
+                    jsonObject.addProperty("name", title!!.text.toString())
+                    jsonObject.addProperty("city", city!!.text.toString())
+                    jsonObject.addProperty("country", country!!.text.toString())
+                    jsonObject.addProperty("routine_description", description!!.text.toString())
+                    if(visibility!!.selectedItem.equals("Publica")){
+                        visibilityString = "public"
+                    } else {
+                        visibilityString = "private"
+                    }
+                    jsonObject.addProperty("visibility", visibilityString)
+                    jsonObject.addProperty("label_category", category!!.selectedItem.toString())
+                    jsonObject.addProperty("state_country", state!!.text.toString())
+                    jsonObject.addProperty("town", town!!.text.toString())
+                    jsonObject.addProperty("followers", routineToEdit.followers)
+
+                    viewLifecycleOwner.lifecycleScope.launch {
+
+                        try{
+                            val response = async { journeymateAPI.updateRoutine(routineToEdit._id ,jsonObject) }
+                            val statusCode = response.await().code
+
+                            if(statusCode == 200){
+                                Toast.makeText(view.context, "Rutina actualizada con exito", Toast.LENGTH_SHORT).show()
+                                findNavController().navigate(R.id.action_newRoutineFragment_to_myListsFragment)
+                            }
+                        } catch (e: Exception){
+                            Log.e("Exception", e.toString())
+                            Toast.makeText(view.context, "Hubo un problema", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                }
+            }
         } else {
-            "private"
-        }
-
-        updateButton = view.findViewById(R.id.updateroutine_button)
-        registerButton = view.findViewById<Button>(R.id.registerroutine_button)
-
-        if(isEdit){
-            setRoutineInfo()
-        }
-
-        registerButton!!.setOnClickListener {
-            if(ValidateFieds()){
-                val jsonObject = JsonObject()
-                jsonObject.addProperty("routine_creator", username)
-                jsonObject.addProperty("name", title!!.text.toString())
-                jsonObject.addProperty("city", city!!.text.toString())
-                jsonObject.addProperty("country", country!!.text.toString())
-                jsonObject.addProperty("routine_description", description!!.text.toString())
-                jsonObject.addProperty("visibility", selectedVisibility)
-                jsonObject.addProperty("label_category", category!!.selectedItem.toString())
-                jsonObject.addProperty("state_country", state!!.text.toString())
-                jsonObject.addProperty("town", town!!.text.toString())
-
-                viewLifecycleOwner.lifecycleScope.launch {
-                    try{
-                        val response = async { journeymateAPI.registerRoutine(jsonObject) }
-                        val statusCode = response.await().code
-
-                        if(statusCode == 200){
-                            Toast.makeText(view.context, "Rutina registrada con exito", Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_newRoutineFragment_to_myListsFragment)
-                        }
-                    } catch (e: Exception){
-                        Log.e("Exception", e.toString())
-                        Toast.makeText(view.context, "Hubo un problema", Toast.LENGTH_SHORT).show()
-                    }
-                    
-                }
-            }
-
-        }
-
-        updateButton!!.setOnClickListener {
-            if(ValidateFieds()){
-                val jsonObject = JsonObject()
-                jsonObject.addProperty("routine_creator", username)
-                jsonObject.addProperty("name", title!!.text.toString())
-                jsonObject.addProperty("city", city!!.text.toString())
-                jsonObject.addProperty("country", country!!.text.toString())
-                jsonObject.addProperty("routine_description", description!!.text.toString())
-                jsonObject.addProperty("visibility", selectedVisibility)
-                jsonObject.addProperty("label_category", category!!.selectedItem.toString())
-                jsonObject.addProperty("state_country", state!!.text.toString())
-                jsonObject.addProperty("town", town!!.text.toString())
-                jsonObject.addProperty("followers", routineToEdit.followers)
-
-                viewLifecycleOwner.lifecycleScope.launch {
-
-                    try{
-                        val response = async { journeymateAPI.updateRoutine(routineToEdit._id ,jsonObject) }
-                        val statusCode = response.await().code
-
-                        if(statusCode == 200){
-                            Toast.makeText(view.context, "Rutina actualizada con exito", Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_newRoutineFragment_to_myListsFragment)
-                        }
-                    } catch (e: Exception){
-                        Log.e("Exception", e.toString())
-                        Toast.makeText(view.context, "Hubo un problema", Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-            }
+            findNavController().navigate(R.id.action_newRoutineFragment_to_loginFragment)
         }
 
         return view

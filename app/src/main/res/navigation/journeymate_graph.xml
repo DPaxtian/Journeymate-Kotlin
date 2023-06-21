@@ -18,6 +18,11 @@
             app:destination="@id/favoritesFragment"
             app:popUpTo="@id/journeymate_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_explorerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/myListsFragment"
@@ -35,6 +40,11 @@
         <action
             android:id="@+id/action_myListsFragment_to_newRoutineFragment"
             app:destination="@id/newRoutineFragment" />
+        <action
+            android:id="@+id/action_myListsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/newRoutineFragment"
@@ -47,11 +57,18 @@
             app:popUpTo="@id/journeymate_graph" />
         <argument
             android:name="routineToEdit"
-            app:argType="com.example.journeymate.models.Routine" />
+            app:argType="com.example.journeymate.models.Routine"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="isEdit"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_newRoutineFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
@@ -64,6 +81,11 @@
         <action
             android:id="@+id/action_favoritesFragment_self"
             app:destination="@id/favoritesFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
             app:popUpTo="@id/journeymate_graph"
             app:popUpToInclusive="true" />
     </fragment>

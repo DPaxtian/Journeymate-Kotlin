@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.journeymate.MainActivity
 import com.example.journeymate.R
 import com.example.journeymate.models.JourneymateAPI
 import com.example.journeymate.models.Routine
@@ -24,9 +25,14 @@ import kotlinx.coroutines.launch
 class MyListsFragment : Fragment() {
     lateinit var username : String
     val myroutines : MutableList<Routine> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        username = "DanielPaxtian69"
+        if(MainActivity.instance.userLogged != null) {
+            username = MainActivity.instance.userLogged!!.username
+        } else {
+            username = ""
+        }
     }
 
     override fun onCreateView(
@@ -34,61 +40,68 @@ class MyListsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_my_lists, container, false)
-        val journeymateApi = RetrofitHelper.getInstance().create(JourneymateAPI::class.java)
 
-        val progressBar = view.findViewById<ProgressBar>(R.id.mylists_progress)
+        if(!username.equals("")){
+            val journeymateApi = RetrofitHelper.getInstance().create(JourneymateAPI::class.java)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                progressBar.visibility = View.VISIBLE
+            val progressBar = view.findViewById<ProgressBar>(R.id.mylists_progress)
 
-                val result = async { journeymateApi.getCreatedRoutines(username) }
-                val routinesObtained = result.await().response
-                myroutines.removeAll(routinesObtained)
-                myroutines.addAll(routinesObtained)
-                if(myroutines != null){
-                    progressBar.visibility = View.GONE
-                }
+            viewLifecycleOwner.lifecycleScope.launch {
+                try {
+                    progressBar.visibility = View.VISIBLE
 
-                val recycler : RecyclerView = view.findViewById(R.id.myroutines_recycler)
-                val adapter : MyListsViewAdapter = MyListsViewAdapter()
+                    val result = async { journeymateApi.getCreatedRoutines(username) }
+                    val routinesObtained = result.await().response
+                    myroutines.removeAll(routinesObtained)
+                    myroutines.addAll(routinesObtained)
+                    if(myroutines != null){
+                        progressBar.visibility = View.GONE
+                    }
 
-                adapter.MyListsViewAdapter(myroutines, view.context)
-                adapter.onRoutineClick = {
-                    val bundle = Bundle()
-                    bundle.putParcelable("routine", it)
-                    findNavController().navigate(R.id.action_myListsFragment_to_routineDetailsFragment, bundle)
-                }
-                
-                adapter.onEditClick = {
-                    val bundle = Bundle()
-                    bundle.putParcelable("routineToEdit", it)
-                    bundle.putBoolean("isEdit", true)
-                    findNavController().navigate(R.id.action_myListsFragment_to_newRoutineFragment, bundle)
-                }
+                    val recycler : RecyclerView = view.findViewById(R.id.myroutines_recycler)
+                    val adapter : MyListsViewAdapter = MyListsViewAdapter()
 
-                adapter.onDeleteClick = {
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        val result = async { journeymateApi.deleteRoutine(it._id) }
-                        val statusCode = result.await().code
+                    adapter.MyListsViewAdapter(myroutines, view.context)
+                    adapter.onRoutineClick = {
+                        val bundle = Bundle()
+                        bundle.putParcelable("routine", it)
+                        findNavController().navigate(R.id.action_myListsFragment_to_routineDetailsFragment, bundle)
+                    }
 
-                        if(statusCode == 200){
-                            Toast.makeText(view.context, "Rutina eliminada con éxito", Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_myListsFragment_self)
-                        } else {
-                            Toast.makeText(view.context, "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
+                    adapter.onEditClick = {
+                        val bundle = Bundle()
+                        bundle.putParcelable("routineToEdit", it)
+                        bundle.putBoolean("isEdit", true)
+                        findNavController().navigate(R.id.action_myListsFragment_to_newRoutineFragment, bundle)
+                    }
+
+                    adapter.onDeleteClick = {
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            val result = async { journeymateApi.deleteRoutine(it._id) }
+                            val statusCode = result.await().code
+
+                            if(statusCode == 200){
+                                Toast.makeText(view.context, "Rutina eliminada con éxito", Toast.LENGTH_SHORT).show()
+                                findNavController().navigate(R.id.action_myListsFragment_self)
+                            } else {
+                                Toast.makeText(view.context, "Ha ocurrido un error", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
-                }
 
-                recycler.hasFixedSize()
-                recycler.layoutManager = LinearLayoutManager(view.context)
-                recycler.adapter = adapter
-            } catch (e : Exception) {
-                progressBar.visibility = View.GONE
-                Log.e("Error", e.toString())
+                    recycler.hasFixedSize()
+                    recycler.layoutManager = LinearLayoutManager(view.context)
+                    recycler.adapter = adapter
+                } catch (e : Exception) {
+                    progressBar.visibility = View.GONE
+                    Log.e("Error", e.toString())
+                }
             }
+
+        } else {
+            findNavController().navigate(R.id.action_myListsFragment_to_loginFragment)
         }
+
 
         return view
     }

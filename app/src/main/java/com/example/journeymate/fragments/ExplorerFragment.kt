@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.journeymate.MainActivity
 import com.example.journeymate.R
 import com.example.journeymate.models.JourneymateAPI
 import com.example.journeymate.models.Routine
@@ -32,7 +33,6 @@ class ExplorerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        username = "DanielPaxtian69"
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +50,9 @@ class ExplorerFragment : Fragment() {
                 val result = async { jouneymateApi.getRoutines() }
                 val routinesObtained = result.await().response
                 routines.removeAll(routinesObtained)
-                routines.addAll(routinesObtained )
+                routines.addAll(routinesObtained.filter {
+                    it.visibility == "public"
+                } )
                 if(routines != null){
                     progressBar.visibility = View.GONE
                 }
@@ -67,19 +69,24 @@ class ExplorerFragment : Fragment() {
                 }
 
                 adapter.onFollowClick = {
+                    if(MainActivity.instance.userLogged != null){
+                        username = MainActivity.instance.userLogged!!.username
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            val jsonObject = JsonObject()
+                            jsonObject.addProperty("username", username)
+                            jsonObject.addProperty("idRoutine", it._id)
+                            val followResult = async { jouneymateApi.followRoutine(jsonObject) }
+                            val resultReturn = followResult.await().code
 
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        val jsonObject = JsonObject()
-                        jsonObject.addProperty("username", username)
-                        jsonObject.addProperty("idRoutine", it._id)
-                        val followResult = async { jouneymateApi.followRoutine(jsonObject) }
-                        val resultReturn = followResult.await().code
-
-                        if(resultReturn == 200){
-                            Toast.makeText(view.context, "Rutina seguida", Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_explorerFragment_to_favoritesFragment)
+                            if(resultReturn == 200){
+                                Toast.makeText(view.context, "Rutina seguida", Toast.LENGTH_SHORT).show()
+                                findNavController().navigate(R.id.action_explorerFragment_to_favoritesFragment)
+                            }
                         }
+                    } else {
+                        findNavController().navigate(R.id.action_explorerFragment_to_loginFragment)
                     }
+
                 }
 
                 recycler.hasFixedSize()

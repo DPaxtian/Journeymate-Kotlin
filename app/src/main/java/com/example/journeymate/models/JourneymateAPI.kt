@@ -17,7 +17,7 @@ import retrofit2.http.Path
 
 interface JourneymateAPI {
     companion object {
-        val instance: JourneymateAPI = Retrofit.Builder().baseUrl("https://bdf0-177-240-174-205.ngrok-free.app/api/v1/").addConverterFactory(GsonConverterFactory.create()).client(
+        val instance: JourneymateAPI = Retrofit.Builder().baseUrl(" https://529d-2806-268-1480-80e5-84fd-c58f-d1f2-d1ef.ngrok-free.app/api/v1/").addConverterFactory(GsonConverterFactory.create()).client(
             OkHttpClient().newBuilder().build()
         ).build().create(JourneymateAPI::class.java)
     }
