@@ -66,7 +66,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/editTextLoginEmail"
                     style="@style/EditTextCustomStyle"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -84,7 +84,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editPassword"
+                    android:id="@+id/editTextLoginPassword"
                     style="@style/EditTextCustomStyle"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -102,6 +102,7 @@
 
                 <Button
                     style="@style/BigButtonCustomStyle"
+                    android:id="@+id/buttonLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="55dp"
@@ -138,7 +139,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
                         android:drawableTop="@drawable/ic_google"
-                        android:drawablePadding="15dp" />
+                        android:drawablePadding="15dp"
+                        />
 
                     <Button
                         style="@style/LoginWithOthers"

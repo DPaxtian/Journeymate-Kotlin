@@ -17,17 +17,20 @@ import retrofit2.http.Path
 
 interface JourneymateAPI {
     companion object {
-        val instance = Retrofit.Builder().baseUrl("<Link>/api/v1/").addConverterFactory(GsonConverterFactory.create()).client(
+        val instance: JourneymateAPI = Retrofit.Builder().baseUrl("https://bdf0-177-240-174-205.ngrok-free.app/api/v1/").addConverterFactory(GsonConverterFactory.create()).client(
             OkHttpClient().newBuilder().build()
         ).build().create(JourneymateAPI::class.java)
     }
 
     //USER
+    @POST("login")
+    suspend fun login(@Body userLogin: UserLoginModel) : UserResponse
+
     @GET("user/{idUser}")
     suspend fun getUser(@Path("idUser") username: String) : UserResponse
 
     @POST("user")
-    suspend fun addNewUser(@Body user: User) : UserResponse
+    suspend fun addNewUser(@Body userToAdd: UserRegisterModel) : UserResponse
 
     @PATCH("user")
     suspend fun updateUser(@Body user: JsonObject) : ResponseInt
