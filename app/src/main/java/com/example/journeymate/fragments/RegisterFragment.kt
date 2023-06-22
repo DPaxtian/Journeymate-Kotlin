@@ -5,11 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.journeymate.R
+import com.example.journeymate.models.HttpStatusCode
+import com.example.journeymate.models.UserRegisterModel
+import com.example.journeymate.viewmodels.UserViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,16 +29,16 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class RegisterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    private lateinit var editTextName : EditText
+    private lateinit var editTextLastname : EditText
+    private lateinit var editTextAge: EditText
+    private lateinit var editTextEmail : EditText
+    private lateinit var editTextPassword : EditText
+    private lateinit var editTextRepeatPassword : EditText
+    private lateinit var buttonSignUp : Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -39,7 +46,18 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        val view =  inflater.inflate(R.layout.fragment_register, container, false)
+        editTextName = view.findViewById(R.id.editTextName)
+        editTextLastname = view.findViewById(R.id.editTextLastName)
+        editTextAge = view.findViewById(R.id.editTextAge)
+        editTextEmail = view.findViewById(R.id.editTextEmail)
+        editTextPassword = view.findViewById(R.id.editPassword)
+        editTextRepeatPassword = view.findViewById(R.id.editPasswordRepeated)
+        buttonSignUp = view.findViewById(R.id.registerSignUpButton)
+
+        setupSignUpButton()
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,6 +79,55 @@ class RegisterFragment : Fragment() {
         }
     }
 
+    private fun setupSignUpButton(){
+        val navController = findNavController()
+        buttonSignUp.setOnClickListener(){
+            val nameUser = editTextName.text.toString()
+            val lastnameUser = editTextLastname.text.toString()
+
+            val newUser = UserRegisterModel(
+                name = nameUser,
+                lastname = lastnameUser,
+                age = editTextAge.text.toString().toInt(),
+                email = editTextEmail.text.toString(),
+                password = editTextPassword.text.toString(),
+                username = UserViewModel.createUsername(nameUser, lastnameUser)
+            )
+
+            val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+            var codeResult = HttpStatusCode.INTERNAL_SERVER_ERROR.code
+
+            userViewModel.performAsyncSignUp(newUser) {
+                    result ->
+                    codeResult = result
+
+                    if(codeResult == HttpStatusCode.OK.code){
+                        showMessage("Bienvenido a la aventura!")
+                        navController.navigate(R.id.loginFragment)
+                    }
+
+                    if(codeResult == HttpStatusCode.PREVIUSLY_REGISTERED.code){
+                        showMessage("Ese correo ya ha sido registrado previamente")
+                    }
+
+                    if(codeResult == HttpStatusCode.INTERNAL_SERVER_ERROR.code){
+                        showMessage("Estamos presentando errores intentalo mas tarde")
+                    }
+            }
+        }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun validateEntryData(): Boolean{
+        val result = true
+
+        return result
+    }
+
+
 
     companion object {
         /**
@@ -75,10 +142,7 @@ class RegisterFragment : Fragment() {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             RegisterFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+
             }
     }
 }

@@ -3,6 +3,7 @@ package com.example.journeymate.repositories
 import com.example.journeymate.models.JourneymateAPI
 import com.example.journeymate.models.User
 import com.example.journeymate.models.UserLoginModel
+import com.example.journeymate.models.UserRegisterModel
 import com.example.journeymate.models.UserResponse
 
 class UserRepository(
@@ -29,4 +30,15 @@ class UserRepository(
             Result.failure(e)
         }
     }
+
+    suspend fun signUp(newUser:UserRegisterModel): Result<UserResponse>{
+        return try{
+            val response = api.addNewUser(newUser)
+            Result.success(response)
+        }catch (e:Exception){
+            Result.failure(e)
+        }
+    }
+
+
 }

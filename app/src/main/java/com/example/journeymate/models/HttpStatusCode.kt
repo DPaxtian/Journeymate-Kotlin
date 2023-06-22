@@ -23,6 +23,7 @@ enum class HttpStatusCode(val code: Int, val description: String) {
     UNAUTHORIZED(401, "Unauthorized"),
     FORBIDDEN(403, "Forbidden"),
     NOT_FOUND(404, "Not Found"),
+    PREVIUSLY_REGISTERED(409, "Previusly registered"),
 
     // 5xx Server Error
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
