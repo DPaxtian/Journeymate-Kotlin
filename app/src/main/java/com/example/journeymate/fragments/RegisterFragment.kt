@@ -14,6 +14,7 @@ import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.journeymate.R
+import com.example.journeymate.models.Encription
 import com.example.journeymate.models.HttpStatusCode
 import com.example.journeymate.models.UserRegisterModel
 import com.example.journeymate.viewmodels.UserViewModel
@@ -80,30 +81,28 @@ class RegisterFragment : Fragment() {
     }
 
     private fun setupSignUpButton(){
-        val navController = findNavController()
         buttonSignUp.setOnClickListener(){
             val nameUser = editTextName.text.toString()
             val lastnameUser = editTextLastname.text.toString()
 
-            val newUser = UserRegisterModel(
-                name = nameUser,
-                lastname = lastnameUser,
-                age = editTextAge.text.toString().toInt(),
-                email = editTextEmail.text.toString(),
-                password = editTextPassword.text.toString(),
-                username = UserViewModel.createUsername(nameUser, lastnameUser)
-            )
-
-            val userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+            val userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
             var codeResult = HttpStatusCode.INTERNAL_SERVER_ERROR.code
-
-            userViewModel.performAsyncSignUp(newUser) {
-                    result ->
+            if(validateEntryData()){
+                val newUser = UserRegisterModel(
+                    name = nameUser,
+                    lastname = lastnameUser,
+                    age = editTextAge.text.toString().toInt(),
+                    email = editTextEmail.text.toString(),
+                    password = Encription.getHashedPassword(editTextPassword.text.toString()),
+                    username = UserViewModel.createUsername(nameUser, lastnameUser)
+                )
+                userViewModel.performAsyncSignUp(newUser) {
+                        result ->
                     codeResult = result
-
                     if(codeResult == HttpStatusCode.OK.code){
-                        showMessage("Bienvenido a la aventura!")
-                        navController.navigate(R.id.loginFragment)
+                        showMessage("!Tu cuenta ha sido creada, inicia sesión para iniciar tu aventura!")
+                        clearAllEditText()
+                        findNavController().popBackStack()
                     }
 
                     if(codeResult == HttpStatusCode.PREVIUSLY_REGISTERED.code){
@@ -111,9 +110,12 @@ class RegisterFragment : Fragment() {
                     }
 
                     if(codeResult == HttpStatusCode.INTERNAL_SERVER_ERROR.code){
-                        showMessage("Estamos presentando errores intentalo mas tarde")
+                        showMessage("Lo sentimos ese correo ya ha sido registrado previamente")
                     }
+
+                }
             }
+
         }
     }
 
@@ -122,11 +124,62 @@ class RegisterFragment : Fragment() {
     }
 
     fun validateEntryData(): Boolean{
-        val result = true
 
-        return result
+        var isValid : Boolean = true
+
+        if(editTextName.text.toString().isEmpty()){
+            editTextName.error = "Ingrese su nombre"
+            isValid = false
+        }
+        if(editTextLastname.text.toString().isEmpty()){
+            editTextLastname.error = "Ingrese su apellido"
+            isValid = false
+        }
+        if (editTextAge.text.toString().isEmpty() || editTextAge.text.toString().toInt() < 14 || editTextAge.text.toString().toInt() > 90) {
+            editTextAge.error = "Ingrese una edad valida"
+            isValid = false
+        }
+
+        if(editTextEmail.text.toString().isEmpty()|| !isEmailValid(editTextEmail.text.toString())){
+            editTextEmail.error = "Ingrese un correo valido"
+            isValid = false
+        }
+        if(editTextPassword.text.toString().isEmpty() || !isPasswordValid(editTextPassword.text.toString())){
+            editTextPassword.error = "Ingrese una contraseña valida"
+            isValid = false
+        }
+        if(editTextRepeatPassword.text.toString().isEmpty()|| editTextPassword.text.toString() != editTextRepeatPassword.text.toString()){
+            editTextRepeatPassword.error = "Las contraseñas no coinciden"
+            isValid = false
+        }
+
+        return isValid
     }
 
+
+    private fun isEmailValid(email: String): Boolean {
+        val emailRegex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\$")
+        return emailRegex.matches(email)
+    }
+
+    private fun isPasswordValid(password: String): Boolean {
+        val uppercaseRegex = Regex("[A-Z]")
+        val digitRegex = Regex("\\d")
+
+        val hasUppercase = uppercaseRegex.containsMatchIn(password)
+        val hasDigit = digitRegex.containsMatchIn(password)
+
+        return hasUppercase && hasDigit
+    }
+
+    private fun clearAllEditText() {
+        editTextName.text.clear()
+        editTextLastname.text.clear()
+        editTextAge.text.clear()
+        editTextEmail.text.clear()
+        editTextPassword.text.clear()
+        editTextRepeatPassword.text.clear()
+    }
 
 
     companion object {

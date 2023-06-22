@@ -97,6 +97,7 @@ class LoginFragment : Fragment() {
 
                 if (codeResult == HttpStatusCode.OK.code) {
                     showMessage("Sesión iniciada")
+                    findNavController().popBackStack()
                 } else if(codeResult == HttpStatusCode.FORBIDDEN.code){
                     showMessage("El correo o la contraseña son incorrectos")
                 }else if(codeResult == HttpStatusCode.INTERNAL_SERVER_ERROR.code){

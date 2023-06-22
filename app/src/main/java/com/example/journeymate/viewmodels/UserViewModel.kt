@@ -66,7 +66,16 @@ class UserViewModel : ViewModel() {
             if (responseResult.isSuccess) {
                 val response = responseResult.getOrNull()
                 if (response != null) {
-                    codeResult = response.code
+                    if(response.code == 0)
+                        codeResult = HttpStatusCode.OK.code
+                    else
+                        codeResult = response.code
+                }
+            }
+            if(responseResult.isFailure){
+                val response = responseResult.getOrNull()
+                if (response != null) {
+                    codeResult = HttpStatusCode.PREVIUSLY_REGISTERED.code
                 }
             }
 

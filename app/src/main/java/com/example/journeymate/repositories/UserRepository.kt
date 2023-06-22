@@ -35,6 +35,7 @@ class UserRepository(
         return try{
             val response = api.addNewUser(newUser)
             Result.success(response)
+
         }catch (e:Exception){
             Result.failure(e)
         }
