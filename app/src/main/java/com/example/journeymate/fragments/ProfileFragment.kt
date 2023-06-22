@@ -29,6 +29,8 @@ class ProfileFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val args = this.arguments
+        username = args?.getString("username")!!
 
     }
 
@@ -45,7 +47,7 @@ class ProfileFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 progressbar.visibility = View.VISIBLE
-                val result = async { jouneymateApi.getUser("DanielPaxtian69") }
+                val result = async { jouneymateApi.getUser(username) }
                 userInfo = result.await().result
                 if(userInfo != null){
                     progressbar.visibility = View.GONE
@@ -73,7 +75,9 @@ class ProfileFragment : Fragment() {
 
         val editProfileButton = view.findViewById<ImageButton>(R.id.button_editprofile)
         editProfileButton.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+            val bundle = Bundle()
+            bundle.putString("username", username)
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment, bundle)
         }
         return view
     }

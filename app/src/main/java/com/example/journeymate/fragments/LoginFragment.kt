@@ -49,6 +49,12 @@ class LoginFragment : Fragment() {
 
         setupListenerLoginButton()
 
+        if(MainActivity.instance.userLogged != null){
+            val bundle = Bundle()
+            bundle.putString("username", MainActivity.instance.userLogged!!.username)
+            findNavController().navigate(R.id.action_loginFragment_to_profileFragment, bundle)
+        }
+
         return view
     }
 

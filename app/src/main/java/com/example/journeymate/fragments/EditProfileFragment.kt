@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 
 class EditProfileFragment : Fragment() {
     lateinit var userInfo : User
+    lateinit var username : String
 
     var editName : EditText? = null
     var editLastname : EditText? = null
@@ -32,6 +33,14 @@ class EditProfileFragment : Fragment() {
     var editCountry : EditText? = null
     var editCity : EditText? = null
     var editDescription : EditText? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val args = this.arguments
+        username = args?.getString("username")!!
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +54,7 @@ class EditProfileFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 progressbar.visibility = View.VISIBLE
-                val result = async { jouneymateApi.getUser("DanielPaxtian69") }
+                val result = async { jouneymateApi.getUser(username) }
                 userInfo = result.await().result
                 if(userInfo != null){
                     progressbar.visibility = View.GONE
@@ -87,7 +96,9 @@ class EditProfileFragment : Fragment() {
 
                             if(statusCode == 200){
                                 Toast.makeText(view.context, "Perfil actualizado", Toast.LENGTH_SHORT).show()
-                                findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
+                                val bundle = Bundle()
+                                bundle.putString("username", username)
+                                findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment, bundle)
                             }
                         }
                     }

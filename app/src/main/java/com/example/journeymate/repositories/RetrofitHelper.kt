@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitHelper {
 
-    val baseUrl = "https://e037-177-240-169-205.ngrok-free.app/api/v1/"
+    val baseUrl = "https://d504-2806-268-1480-80e5-84fd-c58f-d1f2-d1ef.ngrok-free.app/api/v1/"
 
     fun getInstance(): Retrofit {
         return Retrofit.Builder().baseUrl(baseUrl)
