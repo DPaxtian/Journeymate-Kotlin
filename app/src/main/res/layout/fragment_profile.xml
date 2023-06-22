@@ -127,7 +127,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.152"
-        app:srcCompat="@drawable/ic_favorites" />
+        app:srcCompat="@drawable/ic_defaultprofile" />
 
     <TextView
         android:id="@+id/text_name"
