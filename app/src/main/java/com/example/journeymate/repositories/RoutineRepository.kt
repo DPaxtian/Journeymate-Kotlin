@@ -16,7 +16,6 @@ class RoutineRepository (
         }
     }
 
-
     suspend fun getFavoritesRoutines(username : String) : Result<List<Routine>>{
         return try{
             val routinesRecovered = api.getFavoritesRoutines(username)
@@ -25,4 +24,6 @@ class RoutineRepository (
             Result.failure(e);
         }
     }
+
+
 }

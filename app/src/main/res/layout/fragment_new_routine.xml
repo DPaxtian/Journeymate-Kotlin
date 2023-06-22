@@ -251,7 +251,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/registerroutine_button"
                 style="@style/BigButtonCustomStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -260,6 +260,21 @@
                 android:layout_marginEnd="24dp"
                 android:backgroundTint="#805DCC42"
                 android:text="Guardar Rutina"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/newroutine_description" />
+
+            <Button
+                android:id="@+id/updateroutine_button"
+                style="@style/BigButtonCustomStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="#805DCC42"
+                android:text="Actualizar Rutina"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/newroutine_description" />

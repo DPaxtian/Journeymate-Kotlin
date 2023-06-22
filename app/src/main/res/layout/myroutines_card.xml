@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/follow_routine"
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="34dp"
             android:layout_height="32dp"
@@ -38,7 +38,20 @@
             app:layout_constraintStart_toEndOf="@+id/myroutine_card_title"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.07999998"
-            app:srcCompat="@drawable/ic_favorites" />
+            app:srcCompat="@drawable/ic_edit" />
+
+        <ImageButton
+            android:id="@+id/myroutine_delete"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="34dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="5dp"
+            android:background="#00FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/follow_routine"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.07999998"
+            app:srcCompat="@drawable/ic_delete" />
 
         <TextView
             android:id="@+id/myroutine_card_location"
@@ -66,80 +79,29 @@
             app:layout_constraintTop_toBottomOf="@+id/myroutine_card_location"
             app:layout_wrapBehaviorInParent="horizontal_only" />
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="@font/inter_semibold"
-            android:text="De: "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/myroutine_card_description"
-            app:layout_constraintVertical_bias="0.681" />
-
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="19dp"
             android:layout_height="18dp"
-            android:layout_marginStart="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/card_username"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/myroutine_card_description"
             app:srcCompat="@drawable/ic_likes" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="@font/inter_semibold"
-            android:text="Presupuesto:"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.736"
-            app:layout_constraintStart_toEndOf="@+id/myroutine_card_follows"
-            app:layout_constraintTop_toBottomOf="@+id/myroutine_card_description" />
 
         <TextView
             android:id="@+id/myroutine_card_follows"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="@font/inter_light"
             android:text="12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/myroutine_card_description" />
-
-        <TextView
-            android:id="@+id/myroutine_card_budget"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="@font/inter_light"
-            android:text="$1200"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.628"
-            app:layout_constraintStart_toEndOf="@+id/myroutine_card_follows"
-            app:layout_constraintTop_toBottomOf="@+id/textView14"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/card_username"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="@font/inter_light"
-            android:text="dpax"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView12"
-            app:layout_constraintTop_toBottomOf="@+id/myroutine_card_description"
-            app:layout_constraintVertical_bias="0.666" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -13,6 +13,16 @@
         <action
             android:id="@+id/action_explorerFragment_to_routineDetailsFragment"
             app:destination="@id/routineDetailsFragment" />
+        <action
+            android:id="@+id/action_explorerFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_explorerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/myListsFragment"
@@ -22,12 +32,44 @@
         <action
             android:id="@+id/action_myListsFragment_to_routineDetailsFragment"
             app:destination="@id/routineDetailsFragment" />
+        <action
+            android:id="@+id/action_myListsFragment_self"
+            app:destination="@id/myListsFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_myListsFragment_to_newRoutineFragment"
+            app:destination="@id/newRoutineFragment" />
+        <action
+            android:id="@+id/action_myListsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/newRoutineFragment"
         android:name="com.example.journeymate.fragments.NewRoutineFragment"
         android:label="Agregar"
-        tools:layout="@layout/fragment_new_routine" />
+        tools:layout="@layout/fragment_new_routine" >
+        <action
+            android:id="@+id/action_newRoutineFragment_to_myListsFragment"
+            app:destination="@id/myListsFragment"
+            app:popUpTo="@id/journeymate_graph" />
+        <argument
+            android:name="routineToEdit"
+            app:argType="com.example.journeymate.models.Routine"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_newRoutineFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.journeymate.fragments.FavoritesFragment"
@@ -36,6 +78,16 @@
         <action
             android:id="@+id/action_favoritesFragment_to_routineDetailsFragment"
             app:destination="@id/routineDetailsFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_self"
+            app:destination="@id/favoritesFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/routineDetailsFragment"
@@ -73,5 +125,11 @@
         android:id="@+id/editProfileFragment"
         android:name="com.example.journeymate.fragments.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
