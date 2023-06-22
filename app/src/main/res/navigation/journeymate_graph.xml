@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/journeymate_graph"
+    app:startDestination="@id/explorerFragment">
+
+    <fragment
+        android:id="@+id/explorerFragment"
+        android:name="com.example.journeymate.fragments.ExplorerFragment"
+        android:label="Explorar"
+        tools:layout="@layout/fragment_explorer" >
+        <action
+            android:id="@+id/action_explorerFragment_to_routineDetailsFragment"
+            app:destination="@id/routineDetailsFragment" />
+        <action
+            android:id="@+id/action_explorerFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_explorerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/myListsFragment"
+        android:name="com.example.journeymate.fragments.MyListsFragment"
+        android:label="Mis Listas"
+        tools:layout="@layout/fragment_my_lists" >
+        <action
+            android:id="@+id/action_myListsFragment_to_routineDetailsFragment"
+            app:destination="@id/routineDetailsFragment" />
+        <action
+            android:id="@+id/action_myListsFragment_self"
+            app:destination="@id/myListsFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_myListsFragment_to_newRoutineFragment"
+            app:destination="@id/newRoutineFragment" />
+        <action
+            android:id="@+id/action_myListsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/newRoutineFragment"
+        android:name="com.example.journeymate.fragments.NewRoutineFragment"
+        android:label="Agregar"
+        tools:layout="@layout/fragment_new_routine" >
+        <action
+            android:id="@+id/action_newRoutineFragment_to_myListsFragment"
+            app:destination="@id/myListsFragment"
+            app:popUpTo="@id/journeymate_graph" />
+        <argument
+            android:name="routineToEdit"
+            app:argType="com.example.journeymate.models.Routine"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_newRoutineFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.journeymate.fragments.FavoritesFragment"
+        android:label="Favoritas"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_routineDetailsFragment"
+            app:destination="@id/routineDetailsFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_self"
+            app:destination="@id/favoritesFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/routineDetailsFragment"
+        android:name="com.example.journeymate.fragments.RoutineDetailsFragment"
+        android:label="fragment_routine_details"
+        tools:layout="@layout/fragment_routine_details" >
+        <argument
+            android:name="routine"
+            app:argType="com.example.journeymate.models.Routine" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.journeymate.fragments.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.journeymate.fragments.RegisterFragment"
+        android:label="RegisterFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.journeymate.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.journeymate.fragments.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/journeymate_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

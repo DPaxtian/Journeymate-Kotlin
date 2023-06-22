@@ -1,89 +1,35 @@
 package com.example.journeymate
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
-import com.example.journeymate.fragments.ExplorerFragment
-import com.example.journeymate.fragments.FavoritesFragment
-import com.example.journeymate.fragments.MyListsFragment
-import com.example.journeymate.fragments.NewRoutineFragment
-import com.example.journeymate.fragments.ProfileFragment
+import android.provider.CalendarContract.Colors
+import android.view.View
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.journeymate.models.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    lateinit var navigation : BottomNavigationView
-    private val OnNavMenu = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+    var userLogged : User? = null
 
-        when (item.itemId){
-            R.id.item_explorer -> {
-                supportFragmentManager.commit {
-                    replace<ExplorerFragment>(R.id.MainFrame)
-                    setReorderingAllowed(true)
-                    addToBackStack("replacement")
-                }
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-
-        when (item.itemId){
-            R.id.item_mylists -> {
-                supportFragmentManager.commit {
-                    replace<MyListsFragment>(R.id.MainFrame)
-                    setReorderingAllowed(true)
-                    addToBackStack("replacement")
-                }
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-
-        when (item.itemId){
-            R.id.item_newroutine -> {
-                supportFragmentManager.commit {
-                    replace<NewRoutineFragment>(R.id.MainFrame)
-                    setReorderingAllowed(true)
-                    addToBackStack("replacement")
-                }
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-
-        when (item.itemId){
-            R.id.item_favorites -> {
-                supportFragmentManager.commit {
-                    replace<FavoritesFragment>(R.id.MainFrame)
-                    setReorderingAllowed(true)
-                    addToBackStack("replacement")
-                }
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-
-        when (item.itemId){
-            R.id.item_profile -> {
-                supportFragmentManager.commit {
-                    replace<ProfileFragment>(R.id.MainFrame)
-                    setReorderingAllowed(true)
-                    addToBackStack("replacement")
-                }
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-
-        false
+    companion object{
+        lateinit var instance:MainActivity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        navigation = findViewById(R.id.nav_bar)
-        navigation.setOnNavigationItemSelectedListener(OnNavMenu)
-
-        supportFragmentManager.commit {
-            replace<ExplorerFragment>(R.id.MainFrame)
-            setReorderingAllowed(true)
-            addToBackStack("replacement")
-        }
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        window.statusBarColor = Color.BLACK
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        val navView: BottomNavigationView = findViewById(R.id.nav_bar)
+        navView.setupWithNavController(navController)
+        instance = this
     }
 }

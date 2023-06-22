@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.RegisterFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/background_register"
+            android:scaleType="centerCrop" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/returnButton"
+                    android:layout_width="20dp"
+                    android:layout_height="19dp"
+                    android:src="@drawable/ic_return" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="-10dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Crear cuenta"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Nombre(s):"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextName"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Journey"
+                    android:inputType="textPersonName" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Apellido(s):"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextLastName"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Mate"
+                    android:inputType="textPersonName" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Edad:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextAge"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Edad minina 14 años"
+                    android:inputType="number" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Correo:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextEmail"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="journeymate@ejemplo.com"
+                    android:inputType="textEmailAddress" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Contraseña:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editPassword"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Mín. 8 caract., 1 número, 1 mayúscula."
+                    android:inputType="textPassword" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Confirmar contraseña:"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editPasswordRepeated"
+                    style="@style/EditTextCustomStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:hint="Repite tu contraseña"
+                    android:inputType="textPassword" />
+
+                <Button
+                    style="@style/BigButtonCustomStyle"
+                    android:id="@+id/registerSignUpButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="#805DCC42"
+                    android:text="Registrarme" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="51dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp">
+
+                    <Button
+                        style="@style/LoginWithOthers"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_facebook"
+                        android:drawablePadding="15dp" />
+
+                    <Button
+                        style="@style/LoginWithOthers"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:drawableTop="@drawable/ic_google"
+                        android:drawablePadding="15dp" />
+
+                    <Button
+                        style="@style/LoginWithOthers"
+                        android:layout_width="45dp"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_twitter"
+                        android:drawablePadding="15dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="¿Ya tienes cuenta? "
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/signInButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Inicia sesión"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</FrameLayout>

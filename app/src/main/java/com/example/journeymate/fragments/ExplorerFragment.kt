@@ -1,60 +1,103 @@
 package com.example.journeymate.fragments
 
+import RecyclerViewAdapter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.journeymate.MainActivity
 import com.example.journeymate.R
+import com.example.journeymate.models.JourneymateAPI
+import com.example.journeymate.models.Routine
+import com.example.journeymate.repositories.RetrofitHelper
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ExplorerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class ExplorerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    val routines : MutableList<Routine> = ArrayList()
+    lateinit var username : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_explorer, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_explorer, container, false)
+        val jouneymateApi = RetrofitHelper.getInstance().create(JourneymateAPI::class.java)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ExplorerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ExplorerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        val progressBar = view.findViewById<ProgressBar>(R.id.explorer_progress)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                progressBar.visibility = View.VISIBLE
+
+                val result = async { jouneymateApi.getRoutines() }
+                val routinesObtained = result.await().response
+                routines.removeAll(routinesObtained)
+                routines.addAll(routinesObtained.filter {
+                    it.visibility == "public"
+                } )
+                if(routines != null){
+                    progressBar.visibility = View.GONE
                 }
+
+
+                val recycler : RecyclerView = view.findViewById(R.id.explorer_recycler)
+                val adapter : RecyclerViewAdapter = RecyclerViewAdapter()
+
+                adapter.RecyclerViewAdapter(routines, view.context)
+                adapter.onRoutineClick = {
+                    val bundle = Bundle()
+                    bundle.putParcelable("routine", it)
+                    findNavController().navigate(R.id.action_explorerFragment_to_routineDetailsFragment, bundle)
+                }
+
+                adapter.onFollowClick = {
+                    if(MainActivity.instance.userLogged != null){
+                        username = MainActivity.instance.userLogged!!.username
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            val jsonObject = JsonObject()
+                            jsonObject.addProperty("username", username)
+                            jsonObject.addProperty("idRoutine", it._id)
+                            val followResult = async { jouneymateApi.followRoutine(jsonObject) }
+                            val resultReturn = followResult.await().code
+
+                            if(resultReturn == 200){
+                                Toast.makeText(view.context, "Rutina seguida", Toast.LENGTH_SHORT).show()
+                                findNavController().navigate(R.id.action_explorerFragment_to_favoritesFragment)
+                            }
+                        }
+                    } else {
+                        findNavController().navigate(R.id.action_explorerFragment_to_loginFragment)
+                    }
+
+                }
+
+                recycler.hasFixedSize()
+                recycler.layoutManager = LinearLayoutManager(view.context)
+                recycler.adapter = adapter
+            } catch (e: Exception) {
+                progressBar.visibility = View.GONE
+                Log.e("Error", e.toString())
             }
+        }
+        return view
     }
 }
+
